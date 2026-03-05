@@ -1,7 +1,7 @@
-public class Client{
+package ClientServer;
+
+public class Client {
   public static void main(String[] args) {
     System.out.println("Hello Client");
   }
 }
-
-
