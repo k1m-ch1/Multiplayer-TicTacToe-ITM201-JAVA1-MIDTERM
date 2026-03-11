@@ -42,7 +42,7 @@ public class Server {
     boolean nextPlayer;
     int nextPlayerAsInt;
     String userInput = "";
-    while (gameBoard.getWinner() == null) {
+    while (gameBoard.getWinner() == null && !gameBoard.isBoardFilled()) {
 
       nextPlayer = gameBoard.getNextPlayer();
       nextPlayerAsInt = nextPlayer ? 0 : 1;
@@ -50,7 +50,7 @@ public class Server {
       for (int i = 0; i < PLAYERS_PER_GAME; i++) {
         playersOut[i].println(gameBoard.getFormattedBoard());
       }
-      playersOut[nextPlayerAsInt].printf("Your turn (You're %c): \n", gameBoard.getPlayers()[nextPlayerAsInt]);
+      playersOut[nextPlayerAsInt].printf("Your turn (You're %c): ", gameBoard.getPlayers()[nextPlayerAsInt]);
 
       userInput = playersIn[nextPlayerAsInt].nextLine();
       userInput = userInput.strip().toUpperCase();
@@ -65,13 +65,20 @@ public class Server {
       playersOut[i].println(gameBoard.getFormattedBoard());
     }
 
-    // message the winners and losers in dependently
-    boolean winner = gameBoard.getWinner();
-    playersOut[winner ? 0 : 1].println("You won!");
-    playersOut[!winner ? 0 : 1].println("You lost!");
+    // message the winners and losers independently
+    Boolean winner = gameBoard.getWinner();
+    if (winner == null) {
+      for (int i = 0; i < PLAYERS_PER_GAME; i++) {
+        playersOut[i].println("You tied!");
+      }
+    } else {
+      playersOut[winner ? 0 : 1].println("You won!");
+      playersOut[!winner ? 0 : 1].println("You lost!");
+    }
 
     for (int i = 0; i < PLAYERS_PER_GAME; i++) {
       playersOut[i].println("Thanks for playing!");
+      players[i].close();
     }
 
     serverSocket.close();
