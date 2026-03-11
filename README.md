@@ -17,13 +17,13 @@ If the directory look something like this:
 And you want to compile it to `./out`, just do something like:
 
 ```
-java -d out/ src/ClientServer/*.java src/TicTacToe/*.java
+javac -d out/ src/ClientServer/*.java src/TicTacToe/*.java
 ```
 
 And then you can run the server by doing:
 
 ```
-javac -cp out ClientServer.Server
+java -cp out ClientServer.Server
 ```
 
 The `c` is probably for class, the `p` is probably for path.
