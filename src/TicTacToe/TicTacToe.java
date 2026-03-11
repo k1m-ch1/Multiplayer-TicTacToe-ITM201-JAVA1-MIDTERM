@@ -66,11 +66,24 @@ public class TicTacToe {
 
   public String getFormattedBoard() {
     String formattedBoard;
-    String boardTemplate;
     String rowEntry = " %c |".repeat(N - 1) + " %c \n";
-    String rowBorder = "---+".repeat(N - 1) + "---\n";
+    String rowBorder = "   " + "---+".repeat(N - 1) + "---\n";
     String rowEntryAndBorder = rowEntry + rowBorder;
-    boardTemplate = rowEntryAndBorder.repeat(N - 1) + rowEntry;
+
+    // misnomer since we're using alphabets lol
+    String columnNumbering = "";
+
+    String boardTemplate = "";
+    for (int i = 0; i < N - 1; i++) {
+      boardTemplate += (Integer.toString(N - i) + ": " + rowEntryAndBorder);
+      columnNumbering += "  " + (char) ('A' + i) + " ";
+    }
+
+    boardTemplate += "1: " + rowEntry;
+    columnNumbering += "  " + (char) ('A' + N - 1) + " \n";
+    columnNumbering = "  " + columnNumbering;
+
+    boardTemplate += columnNumbering;
 
     char[] flattenedBoard = mapBooleanArrayToPlayer(getFlattenedBoard());
 
