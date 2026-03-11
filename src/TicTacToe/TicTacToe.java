@@ -59,13 +59,7 @@ public class TicTacToe {
     char boardAsChar[][] = new char[N][N];
     for (int i = 0; i < N; i++) {
       for (int j = 0; j < N; j++) {
-        if (board[i][j] == null) {
-          boardAsChar[i][j] = ' ';
-        } else if (board[i][j]) {
-          boardAsChar[i][j] = players[0];
-        } else {
-          boardAsChar[i][j] = players[1];
-        }
+        boardAsChar[i][j] = mapBooleanToPlayer(board[i][j]);
       }
     }
     return boardAsChar;

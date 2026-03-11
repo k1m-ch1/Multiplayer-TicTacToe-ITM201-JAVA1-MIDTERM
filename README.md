@@ -70,6 +70,24 @@ If you want to host it on cloudflare, I won't go over it since it's mostly on th
 Anyway, assuming that you've alredy done all that, just go to the published application page and add a subdomain and link that to port `2345` or whatever port you're hosting it in localhost in your server.
 
 
+# Compiling slides
+
+We'll use [marp](https://github.com/marp-team/marp-cli).
+
+Watching:
+
+```
+npx @marp-team/marp-cli@latest -w slides.md
+```
+
+
+
+Exporting: 
+
+```
+npx @marp-team/marp-cli@latest slides.md -o output.html
+```
+
 # Some sources of References
 
 - https://www.geeksforgeeks.org/java/how-to-create-a-simple-tcp-client-server-connection-in-java/
@@ -83,7 +101,7 @@ Anyway, assuming that you've alredy done all that, just go to the published appl
 
 ## Server
 
-- [] Create a flow for users to connect, and so on.
+- [x] Create a flow for users to connect, and so on.
 - [] If have time, implement multi-threading
 
 ## TicTacToe UI
