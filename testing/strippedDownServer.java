@@ -14,7 +14,6 @@ public class strippedDownServer {
     ServerSocket serverSocket = new ServerSocket(PORT_NUMBER);
     System.out.println("Server is running and waiting for clients to connect.");
 
-    // this looks like it's a blocking method
     Socket clientSocket = serverSocket.accept();
 
     System.out.println("Client connection!");
