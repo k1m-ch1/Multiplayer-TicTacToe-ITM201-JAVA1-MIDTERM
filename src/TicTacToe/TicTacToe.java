@@ -6,6 +6,7 @@ public class TicTacToe {
   private Boolean board[][];
   private char[] players;
   static final int N = 3;
+  private Boolean nextPlayer = true;
 
   public TicTacToe(char firstPlayer, char secondPlayer) {
     board = new Boolean[N][N];
@@ -85,6 +86,22 @@ public class TicTacToe {
     // I still dont' quite get why we need to do Object[] to suppress the warning...
 
     return formattedBoard;
+  }
+
+  public void performMove(Boolean player, int col, int row) {
+    // perform a move
+
+    nextPlayer = !nextPlayer;
+  }
+
+  public boolean isValidPlacement(Boolean player, int col, int row) {
+    // checks whether the player can place it
+    return true;
+  }
+
+  public Boolean getWinner() {
+    // checks who won. If no one won, return null
+    return (Boolean) true;
   }
 
   public static void main(String[] args) {
