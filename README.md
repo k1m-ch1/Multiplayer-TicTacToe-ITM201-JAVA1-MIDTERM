@@ -2,6 +2,10 @@
 
 Simple multiplayer, terminal based TicTacToe over TCP
 
+# Some sources of References
+
+- https://www.geeksforgeeks.org/java/how-to-create-a-simple-tcp-client-server-connection-in-java/
+
 # TODO
 
 ## Client and Server

@@ -17,7 +17,7 @@ public class TicTacToe {
 
   public String getFormattedBoard() {
     String formattedBoard;
-    String rowEntry = "   |".repeat(N - 1) + "   \n";
+    String rowEntry = " %s |".repeat(N - 1) + " %s \n";
     String rowBorder = "---+".repeat(N - 1) + "---\n";
     String rowEntryAndBorder = rowEntry + rowBorder;
     formattedBoard = rowEntryAndBorder.repeat(N - 1) + rowEntry;
