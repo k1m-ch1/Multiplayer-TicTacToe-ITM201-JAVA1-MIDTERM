@@ -1,17 +1,29 @@
 package TicTacToe;
 
-import java.io.CharArrayReader;
-import java.util.*;
-
 public class TicTacToe {
   private Boolean board[][];
   private char[] players;
   static final int N = 3;
-  private Boolean nextPlayer = true;
+  private boolean nextPlayer = true;
 
   public TicTacToe(char firstPlayer, char secondPlayer) {
     board = new Boolean[N][N];
     players = new char[] { firstPlayer, secondPlayer };
+  }
+
+  public char[] getPlayers() {
+    return players;
+  }
+
+  public boolean getNextPlayer() {
+    return nextPlayer;
+  }
+
+  public char mapBooleanToPlayer(Boolean playerAsBoolean) {
+    if (playerAsBoolean == null) {
+      return ' ';
+    }
+    return playerAsBoolean ? players[0] : players[1];
   }
 
   public char[] mapBooleanArrayToPlayer(Boolean[] booleanArray) {
@@ -19,13 +31,7 @@ public class TicTacToe {
     char[] playerArray = new char[booleanArray.length];
 
     for (int i = 0; i < booleanArray.length; i++) {
-      if (booleanArray[i] == null) {
-        playerArray[i] = ' ';
-      } else if (booleanArray[i]) {
-        playerArray[i] = players[0];
-      } else {
-        playerArray[i] = players[1];
-      }
+      playerArray[i] = mapBooleanToPlayer(booleanArray[i]);
     }
 
     return playerArray;
@@ -126,7 +132,7 @@ public class TicTacToe {
 
     Boolean firstCharIsAlphabet = Character.isAlphabetic(userInput.charAt(0));
 
-    Boolean secondCharIsDigit = Character.isAlphabetic(userInput.charAt(1));
+    Boolean secondCharIsDigit = Character.isDigit(userInput.charAt(1));
 
     if (!(firstCharIsAlphabet && secondCharIsDigit)) {
       return false;
@@ -135,8 +141,8 @@ public class TicTacToe {
     Boolean firstCharIsInRange = (userInput.charAt(0) >= 'A')
         && (userInput.charAt(0) < 'A' + N);
 
-    Boolean secondCharIsInRange = userInput.charAt(1) >= 0
-        && (userInput.charAt(1) < N);
+    Boolean secondCharIsInRange = userInput.charAt(1) >= '1'
+        && (userInput.charAt(1) < '1' + N);
 
     return firstCharIsInRange && secondCharIsInRange;
   }
@@ -230,7 +236,6 @@ public class TicTacToe {
     if (isWonDiagonalLeft[1] || isWonDiagonalRight[1]) {
       return false;
     }
-
     return null;
   }
 
@@ -258,5 +263,19 @@ public class TicTacToe {
 
     System.out.println(board.getWinner());
 
+    TicTacToe board2 = new TicTacToe('x', 'o');
+
+    board2.performMove(board2.convertMoveToIndex("B2"));
+    board2.performMove(board2.convertMoveToIndex("A1"));
+    board2.performMove(board2.convertMoveToIndex("B1"));
+    board2.performMove(board2.convertMoveToIndex("C2"));
+    board2.performMove(board2.convertMoveToIndex("C1"));
+    board2.performMove(board2.convertMoveToIndex("B3"));
+    board2.performMove(board2.convertMoveToIndex("A3"));
+
+    System.out.println(board2.getFormattedBoard());
+    System.out.println(board2.getWinner());
+
+    System.out.println(board2.isOfRightFormat("A4"));
   }
 }

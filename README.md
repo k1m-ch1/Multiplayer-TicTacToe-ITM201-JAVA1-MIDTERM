@@ -13,15 +13,20 @@ Simple multiplayer, terminal based TicTacToe over TCP
 - ~~[] Create a test simple TCP client~~
 - [x] Create a test simple TCP server
 
+## Server
+
+- [] Create a flow for users to connect, and so on.
+- [] If have time, implement multi-threading
+
 ## TicTacToe UI
 
-- [] If we have 2D array represening the TicTacToe board, render it in ascii to print out to the terminal
-- [] Design the prompt, parsing user input, handling errors
+- [x] If we have 2D array represening the TicTacToe board, render it in ascii to print out to the terminal
+- [x] Design the prompt, parsing user input, handling errors
 
 ## TicTacToe Logic
 
-- [] create a function to check whether it's valid to place stuff in the cell
-- [] function to check who has won (scan horizontal, verticle, diagonal)
+- [x] create a function to check whether it's valid to place stuff in the cell
+- [x] function to check who has won (scan horizontal, vertical, diagonal)
 
 # Notes
 
