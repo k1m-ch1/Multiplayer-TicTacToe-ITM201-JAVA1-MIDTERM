@@ -1,6 +1,74 @@
-# Multiplayer-TicTacToe-ITM201-JAVA1-MIDTERM
+# Compiling the code
 
-Simple multiplayer, terminal based TicTacToe over TCP
+If the directory look something like this:
+
+```
+├── LICENSE
+├── README.md
+├── out
+├── src
+   ├── ClientServer
+   │   ├── Client.java
+   │   └── Server.java
+   └── TicTacToe
+       └── TicTacToe.java
+```
+
+And you want to compile it to `./out`, just do something like:
+
+```
+java -d out/ src/ClientServer/*.java src/TicTacToe/*.java
+```
+
+And then you can run the server by doing:
+
+```
+javac -cp out ClientServer.Server
+```
+
+The `c` is probably for class, the `p` is probably for path.
+
+
+# Connecting to the server
+
+So this TCP server is hosted over at cloudflare. So as a client, we'd need to talk to it through websockets or something.
+
+I'm just taking most of this from the [official cloudflare docs](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/non-http/cloudflared-authentication/arbitrary-tcp/)
+
+Setting this up requires `cloudflared` on the client's side.
+
+On Linux:
+
+```
+sudo pacman -Sy cloudflared
+```
+
+or sth like that.
+
+So right now, the server might be hosted on `tictactoe.k1mch1.space`.
+
+On the client's side:
+
+```
+cloudflared access tcp --hostname tictactoe.k1mch1.space --url localhost:9210
+```
+
+This acts somewhat like a reverse proxy, where it just forwards the traffic from `tictactoe.k1mch1.space` into our own localhost port at some arbirary port (we've chosen `9210`, somewhat arbitrarily).
+
+From there, you can connect to it using `netcat` or like whatever standard TCP client you want
+
+```
+nc localhost 9210
+```
+
+# Setting up the server
+
+So the setting up of the server is pretty simple if you're hosting it on a LAN. Just run the `server.java` file, or like compile it or something.
+
+If you want to host it on cloudflare, I won't go over it since it's mostly on the web, but basically, you need to first get a domain name and setup all the tunnel stuff. 
+
+Anyway, assuming that you've alredy done all that, just go to the published application page and add a subdomain and link that to port `2345` or whatever port you're hosting it in localhost in your server.
+
 
 # Some sources of References
 

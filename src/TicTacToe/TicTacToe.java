@@ -1,12 +1,21 @@
 package TicTacToe;
 
+import java.util.*;
+
 public class TicTacToe {
   private Boolean board[][];
   private char[] players;
-  static final int N = 3;
+  static private int N;
   private boolean nextPlayer = true;
 
   public TicTacToe(char firstPlayer, char secondPlayer) {
+    // default to an 3x3 board
+    this(firstPlayer, secondPlayer, 3);
+  }
+
+  public TicTacToe(char firstPlayer, char secondPlayer, int n) {
+
+    N = n;
     board = new Boolean[N][N];
     players = new char[] { firstPlayer, secondPlayer };
   }
@@ -17,6 +26,11 @@ public class TicTacToe {
 
   public boolean getNextPlayer() {
     return nextPlayer;
+  }
+
+  public boolean isBoardFilled() {
+    // checks whether the board is filled or not
+    return !Arrays.asList(getFlattenedBoard()).contains(null);
   }
 
   public char mapBooleanToPlayer(Boolean playerAsBoolean) {
@@ -236,6 +250,7 @@ public class TicTacToe {
     if (isWonDiagonalLeft[1] || isWonDiagonalRight[1]) {
       return false;
     }
+
     return null;
   }
 
