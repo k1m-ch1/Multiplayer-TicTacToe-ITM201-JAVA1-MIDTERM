@@ -102,11 +102,12 @@ public class TicTacToe {
     return formattedBoard;
   }
 
-  public int performMove(int row, int col) {
+  public int performMove(int[] coords) {
     // perform a move. returns 0 if everything is fine, returns 1 if it can't be
     // placed.
-
-    if (board[row][col] == null) {
+    int row = coords[0];
+    int col = coords[1];
+    if (board[row][col] != null) {
       return 1;
     } else {
       board[row][col] = nextPlayer;
@@ -149,7 +150,7 @@ public class TicTacToe {
     int row = N - (int) (userInput.charAt(1) - '0');
 
     int arrayToReturn[] = {
-        col, row
+        row, col
     };
 
     return arrayToReturn;
@@ -157,17 +158,105 @@ public class TicTacToe {
 
   public Boolean getWinner() {
     // checks who won. If no one won, return null
-    return (Boolean) true;
+
+    // first check horizontal and vertical
+    // keep track of whether they won in both horizontal and vertical
+    // assume that they've all won? lmao... well, but i need it to be so
+    Boolean[] isWonHorizontal = { true, true };
+    Boolean[] isWonVertical = { true, true };
+    for (int i = 0; i < N; i++) {
+      for (int j = 0; j < N; j++) {
+        // so we're scanning both rows, and columns
+        if (board[i][j] == null) {
+          // of course if it's empty, no one has won in that row or column
+          isWonHorizontal[0] = false;
+          isWonHorizontal[1] = false;
+        } else {
+          // remember the player 1 is true, and player 2 is false
+          isWonHorizontal[0] &= board[i][j];
+          isWonHorizontal[1] &= !board[i][j];
+        }
+
+        if (board[j][i] == null) {
+          isWonVertical[0] = false;
+          isWonVertical[1] = false;
+        } else {
+          isWonVertical[0] &= board[j][i];
+          isWonVertical[1] &= !board[j][i];
+        }
+      }
+
+      if (isWonHorizontal[0] || isWonVertical[0]) {
+        return true;
+      }
+
+      if (isWonHorizontal[1] || isWonVertical[1]) {
+        return false;
+      }
+
+      isWonHorizontal[0] = true;
+      isWonHorizontal[1] = true;
+      isWonVertical[0] = true;
+      isWonVertical[1] = true;
+
+    }
+
+    // if still no winner has been found, check diagonal
+
+    Boolean isWonDiagonalLeft[] = { true, true };
+    Boolean isWonDiagonalRight[] = { true, true };
+
+    for (int i = 0; i < N; i++) {
+      if (board[i][i] == null) {
+        isWonDiagonalLeft[0] = false;
+        isWonDiagonalLeft[1] = false;
+      } else {
+        isWonDiagonalLeft[0] &= board[i][i];
+        isWonDiagonalLeft[1] &= !board[i][i];
+      }
+
+      if (board[i][N - i - 1] == null) {
+        isWonDiagonalRight[0] = false;
+        isWonDiagonalRight[1] = false;
+      } else {
+        isWonDiagonalRight[0] &= board[i][N - i - 1];
+        isWonDiagonalRight[1] &= !board[i][N - i - 1];
+      }
+    }
+
+    if (isWonDiagonalLeft[0] || isWonDiagonalRight[0]) {
+      return true;
+    }
+    if (isWonDiagonalLeft[1] || isWonDiagonalRight[1]) {
+      return false;
+    }
+
+    return null;
   }
 
   public static void main(String[] args) {
     // ok we'll now implement the TicTacToe logic
     TicTacToe board = new TicTacToe('x', 'o');
 
-    Boolean[] flattenedBoard = board.getFlattenedBoard();
+    board.performMove(new int[] { 0, 0 });
+    board.performMove(new int[] { 1, 1 });
+    board.performMove(new int[] { 1, 1 });
+    board.performMove(new int[] { 2, 2 });
+
+    board.performMove(board.convertMoveToIndex("C2"));
+    board.performMove(board.convertMoveToIndex("C2"));
+
+    board.performMove(board.convertMoveToIndex("C3"));
 
     System.out.println(board.getFormattedBoard());
 
-    System.out.println(Arrays.toString(board.convertMoveToIndex("C1")));
+    System.out.println(board.getWinner());
+
+    board.performMove(board.convertMoveToIndex("A2"));
+
+    System.out.println(board.getFormattedBoard());
+
+    System.out.println(board.getWinner());
+
   }
 }
