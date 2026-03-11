@@ -1,5 +1,6 @@
 package TicTacToe;
 
+import java.io.CharArrayReader;
 import java.util.*;
 
 public class TicTacToe {
@@ -88,15 +89,57 @@ public class TicTacToe {
     return formattedBoard;
   }
 
-  public void performMove(Boolean player, int col, int row) {
-    // perform a move
+  public int performMove(int row, int col) {
+    // perform a move. returns 0 if everything is fine, returns 1 if it can't be
+    // placed.
 
-    nextPlayer = !nextPlayer;
+    if (board[row][col] == null) {
+      return 1;
+    } else {
+      board[row][col] = nextPlayer;
+      nextPlayer = !nextPlayer;
+      return 0;
+    }
   }
 
-  public boolean isValidPlacement(Boolean player, int col, int row) {
-    // checks whether the player can place it
-    return true;
+  public Boolean isOfRightFormat(String userInput) {
+    // we want userInput to be the format of A1, B1, etc...
+    Boolean isRightSize = (userInput.length() == 2);
+
+    if (!isRightSize) {
+      return false;
+    }
+
+    Boolean firstCharIsAlphabet = Character.isAlphabetic(userInput.charAt(0));
+
+    Boolean secondCharIsDigit = Character.isAlphabetic(userInput.charAt(1));
+
+    if (!(firstCharIsAlphabet && secondCharIsDigit)) {
+      return false;
+    }
+
+    Boolean firstCharIsInRange = (userInput.charAt(0) >= 'A')
+        && (userInput.charAt(0) < 'A' + N);
+
+    Boolean secondCharIsInRange = userInput.charAt(1) >= 0
+        && (userInput.charAt(1) < N);
+
+    return firstCharIsInRange && secondCharIsInRange;
+  }
+
+  public int[] convertMoveToIndex(String userInput) {
+    // NOTE: assume that it's of the correct format beforehand
+
+    // so the first character is an alphabet
+    int col = (int) userInput.charAt(0) - (int) 'A';
+
+    int row = N - (int) (userInput.charAt(1) - '0');
+
+    int arrayToReturn[] = {
+        col, row
+    };
+
+    return arrayToReturn;
   }
 
   public Boolean getWinner() {
@@ -111,5 +154,7 @@ public class TicTacToe {
     Boolean[] flattenedBoard = board.getFlattenedBoard();
 
     System.out.println(board.getFormattedBoard());
+
+    System.out.println(Arrays.toString(board.convertMoveToIndex("C1")));
   }
 }
