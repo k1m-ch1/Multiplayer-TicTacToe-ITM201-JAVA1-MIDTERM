@@ -1,6 +1,7 @@
 # Some links
 
-- https://www.canva.com/design/DAHDEDisgPA/_HIRvRTIEsle_nRlsYuOvw/edit?utm_content=DAHDEDisgPA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+- [Canva Slides](https://www.canva.com/design/DAHDEDisgPA/_HIRvRTIEsle_nRlsYuOvw/edit?utm_content=DAHDEDisgPA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+- [Github Page](https://github.com/k1m-ch1/Multiplayer-TicTacToe-ITM201-JAVA1-MIDTERM)
 
 # Compiling the code
 
