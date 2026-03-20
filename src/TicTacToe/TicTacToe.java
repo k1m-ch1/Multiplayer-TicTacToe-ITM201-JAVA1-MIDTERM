@@ -249,7 +249,7 @@ public class TicTacToe {
   }
 
   public static void main(String[] args) {
-    // ok we'll now implement the TicTacToe logic
+    // just testing the code
     TicTacToe board = new TicTacToe('x', 'o');
 
     board.performMove(new int[] { 0, 0 });
